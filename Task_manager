@@ -1,0 +1,66 @@
+
+ukoly = [] 
+
+def hlavni_menu():
+
+    print("Správce úkolů - Hlavní menu: \n 1. Přidat nový úkol \n 2. Zobrazit všechny úkoly \n 3. Odstranit úkol \n 4. Konec programu")    
+    dalsi_krok = int(input("Vyberte možnost (1-4):")) 
+    volba = [1,2,3,4]
+    if dalsi_krok in volba:
+        return dalsi_krok
+    else:
+        print("Tato možnost není v nabídce. \n Prosím zvolte číslo 1-4.")
+
+
+def pridat_ukol():
+    while True:
+        nazev_ukolu = (input("Zadejte název úkolu:"))
+        popis_ukolu = (input("Zadejte popis úkolu:"))
+        if  not nazev_ukolu and not popis_ukolu:
+            print("Zadali jste prázdný název úkolu! Úkol nebyl přidán. Opakujte prosím zadání.")
+        elif not nazev_ukolu or not popis_ukolu:
+            print("Zadali jste poloprázdný vstup! Úkol nebyl přidán. Opakujte prosím zadání.")
+        else:       
+            ukol = {"nazev": nazev_ukolu, "popis": popis_ukolu}
+            ukoly.append(ukol)
+            print("Úkol byl přidán!")
+            break
+
+def zobrazit_ukoly():
+    if not ukoly:
+        print("Seznam úkolů je prázdný.")
+    else:
+        print("\nSeznam úkolů:")
+        for i, ukol in enumerate(ukoly,start=1):
+            print(f"{i}. {ukol['nazev']} - {ukol['popis']}")
+        print()
+
+
+def odstranit_ukol():
+    if not ukoly:
+        print("Seznam úkolů je prázdný. Není co odstranit.")
+    else:
+        print("\nSeznam úkolů:")
+        for i, ukol in enumerate(ukoly, start=1):
+                print(f"{i}. Název: {ukol['nazev']}, Popis: {ukol['popis']}")
+        index = int(input("Zadejte číslo úkolu, který chcete odstranit: ")) - 1
+        if 0 <= index < len(ukoly):
+                odstraneny_ukol = ukoly.pop(index) 
+                print(f"Úkol '{odstraneny_ukol}' byl odstraněn.")
+        else:
+            print("Tento úkol se nenachází v seznamu")
+    print()
+
+
+if __name__ == "__main__":
+    while True:
+        dalsi_krok = hlavni_menu()
+        if dalsi_krok == 1:
+            pridat_ukol()
+        elif dalsi_krok == 2:
+            zobrazit_ukoly()
+        elif dalsi_krok == 3:
+            odstranit_ukol()
+        elif dalsi_krok == 4:
+            print("Konec programu. Děkujeme za použití Správce úkolů. Na shledanou!")
+            exit()  # break
